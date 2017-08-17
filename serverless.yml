@@ -1,0 +1,52 @@
+service: ringchart-service-api-v1
+
+frameworkVersion: ">=1.1.0 <2.0.0"
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  region: ap-southeast-2
+  deploymentBucket: ringchart-dev-bucket
+
+
+functions:
+  currentTime:
+    handler: handler.endpoint
+    events:
+      - http:
+          path: ping
+          method: get
+          cors: true
+
+  getShiftCoverage:
+    handler: handler.getShiftCoverage
+    events:
+      - http:
+          path: pulse/summary/shiftCoverage
+          method: get
+          cors: true
+
+  getShiftEfficiency:
+    handler: handler.getShiftEfficiency
+    events:
+      - http:
+          path: pulse/summary/shiftEfficiency
+          method: get
+          cors: true
+
+  getShiftOnTimePerf:
+    handler: handler.getShiftOnTimePerf
+    events:
+      - http:
+          path: pulse/summary/shiftOnTimePerf
+          method: get
+          cors: true
+
+  getS3Credentials:
+    handler: handler.getS3Credentials
+    events:
+      - http:
+          path: s3_credentials
+          method: get
+          cors: true
+
